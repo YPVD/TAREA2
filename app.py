@@ -20,34 +20,36 @@ def home():
     if request.method == 'POST':
         text = request.form['text']
         # Aquí es donde procesarías el texto. Por ahora, solo devolvemos el mismo texto.
-        # Use the Translator detect function
-path = '/detect'
-url = translator_endpoint + path
+       # Use the Translator detect function
+        path = '/detect'
+        url = translator_endpoint + path
 
-# Build the request
-params = {
-    'api-version': '3.0'
-}
+        # Build the request
+        params = {
+            'api-version': '3.0'
+        }
 
-headers = {
-'Ocp-Apim-Subscription-Key': cog_key,
-'Ocp-Apim-Subscription-Region': cog_region,
-'Content-type': 'application/json'
-}
+        headers = {
+            'Ocp-Apim-Subscription-Key': cog_key,
+            'Ocp-Apim-Subscription-Region': cog_region,
+            'Content-type': 'application/json'
+        }
 
-body = [{
-    'text': text
-}]
+        body = [{
+            'text': text
+        }]
 
-# Send the request and get response
-request = requests.post(url, params=params, headers=headers, json=body)
-response = request.json()
+        # Send the request and get response
+        response = requests.post(url, params=params, headers=headers, json=body).json()
 
-# Parse JSON array and get language
-language = response[0]["language"]
+        # Parse JSON array and get language
+        source_language = response[0]["language"]
 
-        return render_template('home.html', translated_text=translated_text,lang_detected=source_language)
-    
+        # Translate the text
+        translated_text = translator.translate(text, dest='es').text
+
+        return render_template('home.html', translated_text=translated_text, lang_detected=source_language)
+
     return render_template('home.html')
 
 if __name__ == "__main__":
