@@ -27,7 +27,7 @@ def home():
     
     return render_template('home.html')
 
-    def GetLanguage(text):
+def GetLanguage(text):
     # Default language is English
     language = 'en'
 
@@ -61,7 +61,7 @@ def home():
     # Return the language
     return language
 
-    def Translate(text, source_language):
+def Translate(text, source_language):
         translation = ''
 
         # Use the Translator translate function
