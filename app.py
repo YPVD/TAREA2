@@ -37,7 +37,7 @@ def GetLanguage(text):
 
     # Build the request
     params = {
-    'api-version': '3.0'
+        'api-version': '3.0'
     }
 
     headers = {
@@ -47,7 +47,7 @@ def GetLanguage(text):
     }
 
     body = [{
-    'text': text
+        'text': text
     }]
 
     # Send the request and get response
