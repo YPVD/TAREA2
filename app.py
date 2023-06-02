@@ -87,7 +87,7 @@ def Translate(text, source_language, paola):
     body = [{
         'text': text
     }]
-
+    
     # Send the request and get response
     request = requests.post(url, params=params, headers=headers, json=body)
     response = request.json()
