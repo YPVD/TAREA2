@@ -28,6 +28,40 @@ def home():
     
     return render_template('home.html')
 
+def GetLanguage(text):
+    # Default language is English
+    language = 'en'
+
+    # Use the Translator detect function
+    path = '/detect'
+    url = translator_endpoint + path
+
+    # Build the request
+    params = {
+        'api-version': '3.0'
+    }
+
+    headers = {
+    'Ocp-Apim-Subscription-Key': cog_key,
+    'Ocp-Apim-Subscription-Region': cog_region,
+    'Content-type': 'application/json'
+    }
+
+    body = [{
+        'text': text
+    }]
+
+    # Send the request and get response
+    request = requests.post(url, params=params, headers=headers, json=body)
+    response = request.json()
+
+    # Parse JSON array and get language
+    language = response[0]["language"]
+
+
+    # Return the language
+    return language
+
 
 
 if __name__ == "__main__":
